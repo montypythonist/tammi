@@ -148,3 +148,7 @@ def main():
         cam.release()
         cv.destroyAllWindows()
 
+
+# me when i run the code fr
+if __name__ == "__main__":
+    main()
