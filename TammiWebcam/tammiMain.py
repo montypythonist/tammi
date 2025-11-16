@@ -14,7 +14,6 @@ def main():
             if not success:
                 break
             
-            value1, value2 = ""
             if visualEnabled:
                 visual_probs = visual.predict_probs(frame) # visual predictions
                 topk = torch.topk(visual_probs, k=1) # get most likely prediction of emotions
@@ -23,9 +22,8 @@ def main():
                 
                 # overlay predictions on video feed
                 for i, (label, prob) in enumerate(zip(top_label, top_prob)):
-                    value1 = str(label)
-                    # text = f"Visual: {label}: {prob*100:.1f}%"
-                    # cv.putText(frame, text, (10, 30 + i*30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+                    text = f"Visual: {label}: {prob*100:.1f}%"
+                    cv.putText(frame, text, (10, 30 + i*30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
                     
 
             if auditoryEnabled:
@@ -33,11 +31,10 @@ def main():
                 audio_probs = audio.latest_probs # get latest audio probabilities
                 audio_top_idx = torch.argmax(audio_probs).item() # index of most likely emotion
                 audio_label = audio.model.config.id2label[audio_top_idx] # map index to label
-                # audio_conf = audio_probs[audio_top_idx].item() * 100 # confidence of most likely emotion
-                value2 = str(audio_label)
-                # audio_text = f"Audio: {audio_label}: {audio_conf:.1f}%" 
+                audio_conf = audio_probs[audio_top_idx].item() * 100 # confidence of most likely emotion
+                audio_text = f"Audio: {audio_label}: {audio_conf:.1f}%" 
                 # overlay predictions on video feed... shocker.
-                # cv.putText(frame, audio_text, (10, 30 + 110), cv.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+                cv.putText(frame, audio_text, (10, 30 + 110), cv.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
 
 
             # multimodal playful/joke/sarcasm detection
@@ -64,18 +61,10 @@ def main():
 
                 # overlay predictions on video feed (jk)
                 if combined_playful > 0.25:  # threshold
-                    value1, value2 = "playful"
+                    cv.putText(frame, "Likely Joking/Playful/Sarcastic", (10, 30 + 160),
+                            cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
 
             # whats gaming my gamers
-            colorAll = [colorNeutral, colorHappy, colorSad, colorAnger, colorFear, colorSurprise, colorDisgust, colorPlayful]
-            emotionAll = ["neutral", "happy", "sad", "anger", "fear", "surprise", "disgust", "playful"]
-            for i in emotionAll:
-            # once we get hardware this will make sense
-                if value1 == i:
-                    visualValue = colorAll[i]
-                if value2 == i:
-                    audioValue = colorAll[i]
-            
             cv.imshow("TRUE ADAPTIVE MODELING MULTIEMOTIONAL INTELLIGENCE - Computer Webcam", frame)
 
             if cv.waitKey(1) & 0xFF == ord("q"): # press "q" on keyboard to end
