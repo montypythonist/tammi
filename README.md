@@ -1,4 +1,5 @@
 # TAMMI: True Adaptive Modeling Multiemotional Intelligence
+## (Webcam version)
 True Adaptive Modeling Multiemotional Intelligence, or "TAMMI" for short, is an EI, emotional intelligence, that helps users correctly identify the emotions of others and interpret social cues more accurately. This project is targeted towards those who are neurodivergent, have some form of alexithymia, or general blindness towards social/emotional cues, however it is not restricted only to people with those conditions.
 
 ## Changes Made:
