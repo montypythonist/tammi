@@ -16,7 +16,7 @@ def main():
             
             if visualEnabled:
                 visual_probs = visual.predict_probs(frame) # visual predictions
-                topk = torch.topk(visual_probs, k=1) # get most likely prediction of emotions
+                topk = torch.topk(visual_probs, k=3) # get most likely prediction of emotions
                 top_label = [visual.model.config.id2label[i] for i in topk.indices.tolist()] # map indices to label
                 top_prob = topk.values.tolist() # get probabilities
                 

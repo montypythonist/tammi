@@ -1,6 +1,6 @@
 import json
 
-with open('tammiWebcam/tammiConfig.json', 'r') as config:
+with open('tammiConfig.json', 'r') as config:
     # get configuration settings from config.json (what detections does the user want/not want for faster runtime)
     # possible reduction of lag?! this is unprecedented
     config = json.load(config)

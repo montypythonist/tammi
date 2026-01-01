@@ -2,3 +2,4 @@ TAMMI-App/*
 # there is an app, yes... i didnt make it yet... but there will be one
 .DS_Store
 # macos file
+*.pyc
